@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>pressy butt 2</h1>
+    <button id='start'>start</button>
+    <script src='jquery.js'></script>
+    <script>
+      var map;
+      function start() {
+        map = {};
+        setTimeout(function() {
+          console.log(map);
+          map = false;
+        }, 5000);
+      }
+      $(document).keydown(function(e) {
+        var str = String.fromCharCode(e.keyCode)
+        if (!map) {
+          return;
+        }
+        if(!map[str]) {
+          map[str] = 1;
+        } else {
+          map[str]++;
+        }
+      });
+      $("#start").click(start);
+    </script>
+  </body>
+</html>
