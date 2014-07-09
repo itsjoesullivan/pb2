@@ -64,18 +64,21 @@
         }
       }
       function start() {
-        $("#status").html("You started. Press!");
-        map = {};
-        interval = setInterval(renderResults, 30);
-        timeEnd = Date.now() + 5000;
-        intervalCountdown = setInterval(timer, 10)
+        $("#status").html("Get ready..........");
         setTimeout(function() {
-          clearInterval(interval);
-          clearInterval(intervalCountdown)
-          $("#status").html("Game has finished.<br>");
-          renderFinalResults();
-          map = false;
-        }, 5000);
+          $("#status").html("You started. Press!");
+          map = {};
+          interval = setInterval(renderResults, 30);
+          timeEnd = Date.now() + 5000;
+          intervalCountdown = setInterval(timer, 10)
+          setTimeout(function() {
+            clearInterval(interval);
+            clearInterval(intervalCountdown)
+            $("#status").html("Game has finished.<br>");
+            renderFinalResults();
+            map = false;
+          }, 5000);
+        }, 1000 + Math.random()*2500);
       }
       $(document).keydown(function(e) {
         var str = String.fromCharCode(e.keyCode)
@@ -90,5 +93,9 @@
       });
       $("#start").click(start);
     </script>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <div class="addthis_sharing_toolbox"></div>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50fb412261b6d141"></script>
   </body>
 </html>
