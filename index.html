@@ -10,29 +10,70 @@
   <body>
     <h1>pressy butt 2</h1>
     <div id="status">Get ready to get started.</div>
+    <div id='timer'></div>
     <div id='results'></div>
+    <div id='winner'></div>
     <button id='start'>start</button>
     <script src='jquery.js'></script>
     <script>
       var map;
+      var timeEnd;
 
+      function timer() {
+        $("#timer").html('Time left: ' + Math.round( (timeEnd - Date.now())/1000) );
+      }
       function renderResults() {
         $("#results").empty();
+        var winner = false;
         for(var i in map) {
+          if(!winner) {
+            winner = {
+              name: i,
+              score: map[i]
+            };
+          }
+          if( map[i] > winner.score ) {
+            winner = {
+              name: i,
+              score: map[i]
+            };
+          }
           str = i + ': ' + map[i];
-          $("#results").append('<p>' + str + '</p>')
+          $("#results").append('<p>' + str + '</p>');
+        }
+      }
+      function renderFinalResults() {
+        $("#results").empty();
+        var winner = false;
+        for(var i in map) {
+          if(!winner) {
+            winner = {
+              name: i,
+              score: map[i]
+            };
+          }
+          if( map[i] > winner.score ) {
+            winner = {
+              name: i,
+              score: map[i]
+            };
+          }
+          str = i + ': ' + map[i];
+          $("#results").append('<p>' + str + '</p>');
+          $("#winner").html("Winner is: " + winner.name + " with " + winner.score);
         }
       }
       function start() {
         $("#status").html("You started. Press!");
         map = {};
         interval = setInterval(renderResults, 30);
-        intervalCountdown = setInterval(function() {
-        }, 1000);
+        timeEnd = Date.now() + 5000;
+        intervalCountdown = setInterval(timer, 10)
         setTimeout(function() {
           clearInterval(interval);
+          clearInterval(intervalCountdown)
           $("#status").html("Game has finished.<br>");
-          renderResults();
+          renderFinalResults();
           map = false;
         }, 5000);
       }
