@@ -1,17 +1,38 @@
 <!doctype html>
 <html>
   <head>
+    <style>
+      #results {
+        font-family: courier;
+      }
+    </style>
   </head>
   <body>
     <h1>pressy butt 2</h1>
+    <div id="status">Get ready to get started.</div>
+    <div id='results'></div>
     <button id='start'>start</button>
     <script src='jquery.js'></script>
     <script>
       var map;
+
+      function renderResults() {
+        $("#results").empty();
+        for(var i in map) {
+          str = i + ': ' + map[i];
+          $("#results").append('<p>' + str + '</p>')
+        }
+      }
       function start() {
+        $("#status").html("You started. Press!");
         map = {};
+        interval = setInterval(renderResults, 30);
+        intervalCountdown = setInterval(function() {
+        }, 1000);
         setTimeout(function() {
-          console.log(map);
+          clearInterval(interval);
+          $("#status").html("Game has finished.<br>");
+          renderResults();
           map = false;
         }, 5000);
       }
