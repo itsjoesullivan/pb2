@@ -90,7 +90,27 @@
         } else {
           map[str]++;
         }
+        playNote( e.keyCode );
       });
+      c = new AudioContext();
+      function keyToFrequency(key) {
+        return Math.pow( Math.pow(2,1/12), (key-49) ) * 440;
+      }
+      function playNote( keyCode ) {
+
+        noteIndex = keyCode - 40
+
+        s = c.createOscillator()
+        s.type = 'sawtooth'
+        s.frequency.value = keyToFrequency( noteIndex );
+        s.start(c.currentTime)
+        s.stop( c.currentTime + 0.6 );
+        g = c.createGain()
+        s.connect( g );
+        g.gain.value = 0.05
+        g.connect( c.destination );
+
+      }
       $("#start").click(start);
     </script>
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
